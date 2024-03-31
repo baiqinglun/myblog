@@ -1,0 +1,81 @@
+# 配置网站图标
+favicon: /images/logo-32.png
+apple_touch_icon: /images/logo-apple.png
+
+# 导航菜单 首页、分类、标签、关于
+navbar:
+  blog_title: 大白的个人博客
+  menu:
+    - { key: 'home', link: '/', icon: 'iconfont icon-home-fill',name: '首页' }
+    - { key: 'archives', link: '/archives', icon: 'iconfont icon-books',name: '归档' }
+    - { key: 'categories', link: '/categories/', icon: 'iconfont icon-th-large', name: '分类' }
+    - { key: 'tags', link: '/tags/', icon: 'iconfont icon-tags-fill',name: '标签' }
+    - { key: 'about', link: '/about/', icon: 'iconfont icon-user-fill', name: '关于' }
+
+# 首页
+index:
+  # 文章跳转方式
+  post_url_target: _self
+  post_sticky:
+    enable: true
+    icon: 'iconfont icon-top'
+  slogan:
+    enable: true
+    text: 只有努力过，才有资格顺其自然!
+
+# 关于页面
+about:
+  # avatar: /images/logo.png
+  avatar: https://img.icons8.com/3d-fluency/94/dragonfly.png
+  name: "大白不太白"
+  intro: "相逢恨晚，人谁道，早有轻离轻折。"
+  icons:  # 不要把 icon 注释掉，否则无法覆盖配置
+    - { class: 'iconfont icon-github-fill', link: 'https://github.com/baiqinglun?tab=repositories' }
+    - { class: 'iconfont icon-wechat-fill', qrcode: 'https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/mmqrcode1710687579895.png' }
+    - { class: 'iconfont icon-bilibili-fill', qrcode: 'https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/%E5%A4%A7%E7%99%BDbu%E5%A4%AA%E7%99%BD%E3%81%AE%E4%BA%8C%E7%BB%B4%E7%A0%811710687784160.png' }
+
+fun_features:
+  typing: # 为 subtitle 添加打字机效果
+    enable: true
+    typeSpeed: 100 # 打印速度，值越大越慢
+    cursorChar: "_" # 游标字符
+    loop: false # 是否循环播放效果
+
+post:
+  default_index_img: "https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/20240318000144.png"
+  meta:
+    author:  # 作者，优先根据 front-matter 里 author 字段，其次是 hexo 配置中 author 值
+      enable: true
+    date:  # 文章日期，优先根据 front-matter 里 date 字段，其次是 md 文件日期
+      enable: true
+      format: "dddd, MMMM Do YYYY, h:mm a"  # 格式参照 ISO-8601 日期格式化
+    wordcount:  # 字数统计
+      enable: true
+      format: "{} 字"  # 显示的文本，{}是数字的占位符（必须包含)，下同
+    min2read:  # 阅读时间
+      enable: true
+      format: "{} 分钟"
+    # views:  # 阅读次数
+    #   enable: true
+    #   source: "leancloud"  # 统计数据来源，可选：leancloud | busuanzi   注意不蒜子会间歇抽风
+    #   format: "{} 次"
+  # LaTeX 数学公式
+  math:
+    enable: true
+    specific: false
+    engine: mathjax
+  # Mermaid 流程图
+  mermaid:
+    enable: true
+    specific: false
+
+code:
+  copy_btn: true
+  highlight:
+    enable: true
+    line_number: true
+    lib: "highlightjs"
+    highlightjs:
+      style: 'Github Gist'
+      bg_color: true
+
