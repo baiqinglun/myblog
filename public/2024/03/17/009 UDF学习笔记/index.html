@@ -1,0 +1,825 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/logo-apple.png">
+  <link rel="icon" href="/images/logo-32.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="DB">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="UDF基础学习，介绍udf以及一些常见的宏，并给出几个udf案例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UDF学习笔记">
+<meta property="og:url" content="http://example.com/2024/03/17/009%20UDF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="大白的个人博客">
+<meta property="og:description" content="UDF基础学习，介绍udf以及一些常见的宏，并给出几个udf案例">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/202204081531095.png">
+<meta property="article:published_time" content="2024-03-17T14:30:25.000Z">
+<meta property="article:modified_time" content="2024-03-31T16:58:10.553Z">
+<meta property="article:author" content="DB">
+<meta property="article:tag" content="UDF">
+<meta property="article:tag" content="Fluent">
+<meta property="article:tag" content="模拟">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/202204081531095.png">
+  
+  
+  
+  <title>UDF学习笔记 - 大白的个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>大白的个人博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="UDF学习笔记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        DB
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-03-17 22:30" pubdate>
+          星期日, 三月 17日 2024, 10:30 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          1.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          12 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">UDF学习笔记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>有时fluent自带的边界条件等不满足我们的需求，需要使用udf进行更改，比如一个泄漏口流量随时间变化。对于大多数没有编程基础的小伙伴来说，直接看fluent udf的官方文档比较吃力，花费大量的时间还找不到相关的函数。</p>
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/202204081531095.png" srcset="/img/loading.gif" lazyload alt="image-20220408153144869"></p>
+<h2 id="1、UDF常见的循环宏"><a href="#1、UDF常见的循环宏" class="headerlink" title="1、UDF常见的循环宏"></a>1、UDF常见的循环宏</h2><p><strong>简写</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c">d:：domin（指针）<br><br>ct,t：cell thread（指针）<br><br>ft,f_thread：face thread（指针）<br><br>c：cell thread（变量）<br><br>f：face thread（变量）<br></code></pre></td></tr></table></figure>
+
+<h3 id="1-1-对域d中的所有单元循环"><a href="#1-1-对域d中的所有单元循环" class="headerlink" title="1.1 对域d中的所有单元循环"></a>1.1 对域d中的所有单元循环</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">thread_loop_f(ft,d) &#123;  &#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="1-2-对域d中的所有面thread循环"><a href="#1-2-对域d中的所有面thread循环" class="headerlink" title="1.2 对域d中的所有面thread循环"></a>1.2 对域d中的所有面thread循环</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">thread_loop_f(ft,d) &#123;  &#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="1-3-对thread-t中的所有单元循环"><a href="#1-3-对thread-t中的所有单元循环" class="headerlink" title="1.3 对thread t中的所有单元循环"></a>1.3 对thread t中的所有单元循环</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c">begin_c_loop(c,t)<br>	&#123;  &#125;<br>end_c_loop(c,t);<br></code></pre></td></tr></table></figure>
+
+<h3 id="1-4-对面thread中所有面循环"><a href="#1-4-对面thread中所有面循环" class="headerlink" title="1.4 对面thread中所有面循环"></a>1.4 对面thread中所有面循环</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c">begin_f_loop(f,f_thread)<br>	&#123;  &#125;<br>end_f_loop(f,f_thread)<br></code></pre></td></tr></table></figure>
+
+<h2 id="2、相关案例"><a href="#2、相关案例" class="headerlink" title="2、相关案例"></a>2、相关案例</h2><h3 id="2-1-风速随高度变化"><a href="#2-1-风速随高度变化" class="headerlink" title="2.1 风速随高度变化"></a>2.1 风速随高度变化</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;udf.h&quot;</span></span><br>DEFINE_PROFILE(inlet_x,thread,index)<br>&#123;<br>	real y,v0,h0;<br>	real x[ND_ND];<span class="hljs-comment">//用来存储质心坐标</span><br>	<span class="hljs-type">face_t</span> f;<br>	v0=<span class="hljs-number">1</span>;<br>	h0=<span class="hljs-number">2</span>;<br>	begin_f_loop(f,thread)<br>	&#123;<br>        <span class="hljs-comment">//这里传入的x是质心</span><br>		F_CENTROID(x,f,thread);<span class="hljs-comment">//F_CENTROID 获得面中心的坐标</span><br>		y=x[<span class="hljs-number">2</span>];<br>		F_PROFILE(f,thread,index) = v0*<span class="hljs-built_in">pow</span>(y/h0,<span class="hljs-number">0.2</span>);<br>		end_f_loop(f,thread)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-2-速度随时间变化"><a href="#2-2-速度随时间变化" class="headerlink" title="2.2 速度随时间变化"></a>2.2 速度随时间变化</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;udf.h&quot;</span></span><br>DEFINE_PROFILE(inlet_V,thread,i)<br>&#123;<br>	<span class="hljs-type">face_t</span> f;<span class="hljs-comment">// 定义一个面f</span><br>	real flow_time = CURRENT_TIME;<span class="hljs-comment">//定义一个实数flow_time获取当前时间</span><br>	begin_f_loop(f,thread)<br>	&#123;<br>		<span class="hljs-keyword">if</span>(flow_time &gt;=<span class="hljs-number">0</span> )<br>			F_PROFILE(f,thread,i) = <span class="hljs-number">1.5</span>+<span class="hljs-number">0.5</span>*<span class="hljs-built_in">sin</span>(<span class="hljs-number">2</span>*<span class="hljs-number">3.14159</span>*<span class="hljs-number">0.1</span>*flow_time);<br>		<span class="hljs-keyword">else</span><br>			F_PROFILE(f,thread,i) = <span class="hljs-number">1.5</span>;<br>	&#125;<br>	end_f_loop(f,thread)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-3-压力随着高度变化"><a href="#2-3-压力随着高度变化" class="headerlink" title="2.3 压力随着高度变化"></a>2.3 压力随着高度变化</h3><p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/202204021506327.png" srcset="/img/loading.gif" lazyload alt="image-20220402150600314"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;udf.h&quot;</span></span><br><br>DEFINE_PROFILE(pressure_profile,t,i)<br>&#123;<br>   real x[ND_ND];<br>   real y;<br>   <span class="hljs-type">face_t</span> f;<br>   begin_f_loop(f,t)<br>   &#123;<br>       F_CENTROID(X,f,t);<span class="hljs-comment">//F_CENTROID 获得面中心的坐标，用来计算每个面的压力</span><br>       y = x[<span class="hljs-number">1</span>];<span class="hljs-comment">// 获取y数值，0表示x，1表示y，2表示z</span><br>       F_FPOFILE(f,t,i) = <span class="hljs-number">1.1e5</span> - y*y/(<span class="hljs-number">.0745</span>*<span class="hljs-number">.0745</span>)*<span class="hljs-number">0.1e5</span>;<br>   &#125;<br>   end_f_loop(f,t)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-4-材料属性随温度变化"><a href="#2-4-材料属性随温度变化" class="headerlink" title="2.4 材料属性随温度变化"></a>2.4 材料属性随温度变化</h3><p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/202204021508615.png" srcset="/img/loading.gif" lazyload alt="image-20220402150830581"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;udf.h&quot;</span></span><br>DEFILE_PROPERTY(steel_heat,c,t)<br>&#123;<br>	real <span class="hljs-type">s_t</span>;<br>	real = Tk = C_T(c,t);<span class="hljs-comment">//读取当前的温度</span><br>	<span class="hljs-keyword">if</span>(Tk&lt;=<span class="hljs-number">273.15</span>)<br>		<span class="hljs-type">s_t</span> = <span class="hljs-number">14</span>;<br>	<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(Tk&lt;=<span class="hljs-number">1273.15</span>)<br>		<span class="hljs-type">s_t</span> = <span class="hljs-number">14</span>-(Tk<span class="hljs-number">-273.15</span>)*<span class="hljs-number">0.004</span>;<br>	<span class="hljs-keyword">else</span><br>		<span class="hljs-type">s_t</span> = <span class="hljs-number">10</span>;<br>	<span class="hljs-keyword">return</span> <span class="hljs-type">s_t</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/202204021524675.png" srcset="/img/loading.gif" lazyload alt="image-20220402152435617"></p>
+<h3 id="2-5-质量流量随时间变化"><a href="#2-5-质量流量随时间变化" class="headerlink" title="2.5 质量流量随时间变化"></a>2.5 质量流量随时间变化</h3><p>以下名为INTERT_MF的UDF最初指定前10毫秒的质量流量为3.0千克&#x2F;秒，然后在接下来的10毫秒内将其增加到4.0千克&#x2F;秒，之后指定5.0千克&#x2F;秒。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;udf.h&quot;</span></span><br>DEFINE_PROFILE(inlet_mf,th,i)<br>&#123;<br>	<span class="hljs-type">face_t</span> f;<br>	real flow_time = CURRENT_TIME;<span class="hljs-comment">/*查找当前流动的时间*/</span><br>	begin_f_loop(f,th)<br>	&#123;<br>		<span class="hljs-keyword">if</span>(flow_time &lt;= <span class="hljs-number">0.01</span>)<br>			F_PROFILE(f,th,i) = <span class="hljs-number">3.0</span>;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(flow_time &lt;= <span class="hljs-number">0.02</span>)<br>			F_PROFILE(f,th,i) = <span class="hljs-number">4.0</span>;<br>		<span class="hljs-keyword">else</span><br>			F_PROFILE(f,th,i) = <span class="hljs-number">5.0</span>;<br>	&#125;<br>	end_f_loop(f,th);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-6-时间步长的改变"><a href="#2-6-时间步长的改变" class="headerlink" title="2.6 时间步长的改变"></a>2.6 时间步长的改变</h3><p>DEFINE_DELTAT</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c">DEFINE <span class="hljs-title function_">DELTAT</span> <span class="hljs-params">(mydeltat,d)</span><br>&#123;<br>    real time_step;<br>    real flow_time = CURRENT_TIME;<br>    <span class="hljs-keyword">if</span> (flow_time <span class="hljs-number">0.5</span>)<br>        time_step = <span class="hljs-number">0.1</span>;<br>    <span class="hljs-keyword">else</span><br>        time_step = <span class="hljs-number">0.2</span>;<br>    <span class="hljs-keyword">return</span> time_step;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-7-蒸发冷凝模型源相"><a href="#2-7-蒸发冷凝模型源相" class="headerlink" title="2.7 蒸发冷凝模型源相"></a>2.7 蒸发冷凝模型源相</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;udf.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;sg_mphase.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> T_SAT 373.15   <span class="hljs-comment">//饱和温度373.15 K</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> LAT_HT 1.e3 <span class="hljs-comment">//汽化潜热1000 J/kg</span></span><br><span class="hljs-comment">// 液相质量源项</span><br>DEFINE_SOURCE(liq_src, cell, pri_th, dS, eqn)<br>&#123;<br> Thread *mix_th, *sec_th;<br> real m_dot_l;<br> <span class="hljs-comment">// mix_th存储主相的Thread指针；sec_th存储次相指针，注意ID</span><br> mix_th = THREAD_SUPER_THREAD(pri_th);<br> sec_th = THREAD_SUB_THREAD(mix_th, <span class="hljs-number">1</span>);<br> <span class="hljs-comment">// 温度大于饱和温度，表示为蒸发</span><br> <span class="hljs-keyword">if</span> (C_T(cell, mix_th) &gt;= T_SAT)<br> &#123;<br>   <span class="hljs-comment">//计算蒸发量，注意液相质量流量为负值，0.1为coeff值</span><br>   m_dot_l = <span class="hljs-number">-0.1</span> * C_VOF(cell, pri_th) * C_R(cell, pri_th) *<br>             <span class="hljs-built_in">fabs</span>(C_T(cell, pri_th) - T_SAT) / T_SAT;<br>   <span class="hljs-comment">//对体积分数求导</span><br>   dS[eqn] = <span class="hljs-number">-0.1</span> * C_R(cell, pri_th) *<br>             <span class="hljs-built_in">fabs</span>(C_T(cell, pri_th) - T_SAT) / T_SAT;<br> &#125;<br> <span class="hljs-keyword">else</span><br> &#123;<br>   <span class="hljs-comment">//计算冷凝量，液相质量分数为正值</span><br>   m_dot_l = <span class="hljs-number">0.1</span> * C_VOF(cell, sec_th) * C_R(cell, sec_th) *<br>             <span class="hljs-built_in">fabs</span>(T_SAT - C_T(cell, mix_th)) / T_SAT;<br>   <span class="hljs-comment">//若对体积分数求导得到的值为正，干脆直接赋零值</span><br>   dS[eqn] = <span class="hljs-number">0.</span>;<br> &#125;<br> <span class="hljs-keyword">return</span> m_dot_l;<br>&#125;<br><span class="hljs-comment">// 气相质量源项，解释同上</span><br>DEFINE_SOURCE(vap_src, cell, sec_th, dS, eqn)<br>&#123;<br> Thread *mix_th, *pri_th;<br> real m_dot_v;<br> mix_th = THREAD_SUPER_THREAD(sec_th);<br> pri_th = THREAD_SUB_THREAD(mix_th, <span class="hljs-number">0</span>);<br> <span class="hljs-keyword">if</span> (C_T(cell, mix_th) &gt;= T_SAT)<br> &#123;<br>   m_dot_v = <span class="hljs-number">0.1</span> * C_VOF(cell, pri_th) * C_R(cell, pri_th) *<br>             <span class="hljs-built_in">fabs</span>(C_T(cell, mix_th) - T_SAT) / T_SAT;<br>   dS[eqn] = <span class="hljs-number">0.</span>;<br> &#125;<br> <span class="hljs-keyword">else</span><br> &#123;<br>   m_dot_v = <span class="hljs-number">-0.1</span> * C_VOF(cell, sec_th) * C_R(cell, sec_th) *<br>             <span class="hljs-built_in">fabs</span>(T_SAT - C_T(cell, mix_th)) / T_SAT;<br>   dS[eqn] = <span class="hljs-number">-0.1</span> * C_R(cell, sec_th) *<br>             <span class="hljs-built_in">fabs</span>(C_T(cell, sec_th) - T_SAT) / T_SAT;<br> &#125;<br> <span class="hljs-keyword">return</span> m_dot_v;<br>&#125;<br><span class="hljs-comment">//混合相的能量源项</span><br>DEFINE_SOURCE(enrg_src, cell, mix_th, dS, eqn)<br>&#123;<br> Thread *pri_th, *sec_th;<br> real m_dot;<br> pri_th = THREAD_SUB_THREAD(mix_th, <span class="hljs-number">0</span>);<br> sec_th = THREAD_SUB_THREAD(mix_th, <span class="hljs-number">1</span>);<br> <span class="hljs-keyword">if</span> (C_T(cell, mix_th) &gt;= T_SAT)<br> &#123;<br>   <span class="hljs-comment">// 得到蒸发量，Lee模型</span><br>   m_dot = <span class="hljs-number">-0.1</span> * C_VOF(cell, pri_th) * C_R(cell, pri_th) *<br>           <span class="hljs-built_in">fabs</span>(C_T(cell, pri_th) - T_SAT) / T_SAT;<br>   <span class="hljs-comment">//对温度求导，若为负则保留，否则赋值零</span><br>   dS[eqn] = <span class="hljs-number">-0.1</span> * C_VOF(cell, pri_th) * C_R(cell, pri_th) / T_SAT;<br> &#125;<br> <span class="hljs-keyword">else</span><br> &#123;<br>   <span class="hljs-comment">//得到冷凝量</span><br>   m_dot = <span class="hljs-number">0.1</span> * C_VOF(cell, sec_th) * C_R(cell, sec_th) *<br>           <span class="hljs-built_in">fabs</span>(T_SAT - C_T(cell, mix_th)) / T_SAT;<br>   dS[eqn] = <span class="hljs-number">-0.1</span> * C_VOF(cell, sec_th) * C_R(cell, sec_th) / T_SAT;<br> &#125;<br>   <br> <span class="hljs-comment">// 返回热量值，利用潜热与质量流量的乘积得到</span><br> <span class="hljs-keyword">return</span> LAT_HT * m_dot;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="3、函数"><a href="#3、函数" class="headerlink" title="3、函数"></a>3、函数</h2><h3 id="3-1-DEFINE-PROFILE"><a href="#3-1-DEFINE-PROFILE" class="headerlink" title="3.1 DEFINE_PROFILE"></a>3.1 DEFINE_PROFILE</h3><ol>
+<li><p>使用DEFINE_PROFILE定义一个<strong>自定义边界配置文件</strong>，该边界配置文件随空间坐标或时间的函数而变化。</p>
+</li>
+<li><p>边界的变量可以是速度、压力、温度、湍流动能、湍流耗散率、质量流率等（见手册2.3.17）</p>
+</li>
+</ol>
+<p>用法<code>DEFINE_PROFILE (name,t,i)</code></p>
+<p>thread *t：指向要应用边界条件的线程的指针。</p>
+<p>int i：标识要定义的变量的索引。</p>
+<h3 id="3-2-DEFILE-PROPERTY"><a href="#3-2-DEFILE-PROPERTY" class="headerlink" title="3.2 DEFILE_PROPERTY"></a>3.2 DEFILE_PROPERTY</h3><ol>
+<li><p>定义材料的属性</p>
+</li>
+<li><p>可以是密度、粘度、热导率、吸收和扩散系数、层流火焰速度、应变率等</p>
+</li>
+</ol>
+<p><strong>对于多相流</strong></p>
+<p>传热系数（Mixture）、颗粒或液滴直径（Mixture）</p>
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/202204021517069.png" srcset="/img/loading.gif" lazyload alt="image-20220402151729022"></p>
+<p><strong>用法</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">DEFILE_PROPERTY(name,c,t)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/202204021518094.png" srcset="/img/loading.gif" lazyload alt="image-20220402151838068"></p>
+<h2 id="4、常用宏"><a href="#4、常用宏" class="headerlink" title="4、常用宏"></a>4、常用宏</h2><h3 id="4-1-流场变量宏"><a href="#4-1-流场变量宏" class="headerlink" title="4.1 流场变量宏"></a>4.1 流场变量宏</h3><table>
+<thead>
+<tr>
+<th align="center">C_R(c,t)</th>
+<th align="center">密度（Density）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">C_P(c,t)</td>
+<td align="center">压力（Pressure）</td>
+</tr>
+<tr>
+<td align="center">C_U(c,t)</td>
+<td align="center">x方向速度（U-velocity）</td>
+</tr>
+<tr>
+<td align="center">C_V(c,t)</td>
+<td align="center">y方向速度（V-velocity）</td>
+</tr>
+<tr>
+<td align="center">C_W(c,t)</td>
+<td align="center">z方向速度（W-velocity）</td>
+</tr>
+<tr>
+<td align="center">C_T(c,t)</td>
+<td align="center">温度（Temperature）</td>
+</tr>
+<tr>
+<td align="center">C_H(c,t)</td>
+<td align="center">焓（Enthalpy）</td>
+</tr>
+</tbody></table>
+<p>其他</p>
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/202204081421298.png" srcset="/img/loading.gif" lazyload alt="image-20220408142156047"></p>
+<h3 id="4-2-几何和时间宏"><a href="#4-2-几何和时间宏" class="headerlink" title="4.2 几何和时间宏"></a>4.2 几何和时间宏</h3><p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/202204081424561.png" srcset="/img/loading.gif" lazyload alt="image-20220408142424531"></p>
+<p>CURRENT_TIME；获取当前模拟时间的值；</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%A8%A1%E6%8B%9F/" class="category-chain-item">模拟</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%A8%A1%E6%8B%9F/Fluent/" class="category-chain-item">Fluent</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/UDF/" class="print-no-link">#UDF</a>
+      
+        <a href="/tags/Fluent/" class="print-no-link">#Fluent</a>
+      
+        <a href="/tags/%E6%A8%A1%E6%8B%9F/" class="print-no-link">#模拟</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>UDF学习笔记</div>
+      <div>http://example.com/2024/03/17/009 UDF学习笔记/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>DB</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年3月17日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/03/17/010%20%E5%B8%B8%E7%94%A8%E7%9A%84udf/" title="分享一些常用的UDF">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">分享一些常用的UDF</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/03/17/002%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="设计模式（c++版本）">
+                        <span class="hidden-mobile">设计模式（c++版本）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

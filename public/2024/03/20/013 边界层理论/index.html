@@ -1,0 +1,791 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/logo-apple.png">
+  <link rel="icon" href="/images/logo-32.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="DB">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="如何设置边界层第一层网格大小、边界层总数量数量和增长率">
+<meta property="og:type" content="article">
+<meta property="og:title" content="边界层理论">
+<meta property="og:url" content="http://example.com/2024/03/20/013%20%E8%BE%B9%E7%95%8C%E5%B1%82%E7%90%86%E8%AE%BA/index.html">
+<meta property="og:site_name" content="大白的个人博客">
+<meta property="og:description" content="如何设置边界层第一层网格大小、边界层总数量数量和增长率">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/20240320162112.png">
+<meta property="article:published_time" content="2024-03-20T09:00:00.000Z">
+<meta property="article:modified_time" content="2024-03-31T16:58:10.554Z">
+<meta property="article:author" content="DB">
+<meta property="article:tag" content="模拟">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/20240320162112.png">
+  
+  
+  
+  <title>边界层理论 - 大白的个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>大白的个人博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="边界层理论"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        DB
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-03-20 17:00" pubdate>
+          星期三, 三月 20日 2024, 5:00 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          815 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          7 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">边界层理论</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="边界层理论"><a href="#边界层理论" class="headerlink" title="边界层理论"></a>边界层理论</h1><p>关键词：<span class="label label-primary">边界层</span> <span class="label label-info">增长比率</span> <span class="label label-success">y+</span></p>
+<p>疑问：</p>
+<ol>
+<li>边界层应该画多少个（N）？</li>
+<li>第一层网格的大小（yH）？</li>
+<li>增长比率是多少（G）？</li>
+</ol>
+<h2 id="1、边界层理论"><a href="#1、边界层理论" class="headerlink" title="1、边界层理论"></a>1、边界层理论</h2><p>流体在大雷诺数下作绕流流动时，在离固体壁面较远处，粘性力比惯性力小得多，可以忽略；但在固体壁面附近的薄层中，粘性力的影响则不能忽略，沿壁面法线方向存在相当大的速度梯度，这一薄层叫做边界层。流体的雷诺数越大，边界层越薄。</p>
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240320150149505.png" srcset="/img/loading.gif" lazyload alt="image-20240320150149505"></p>
+<p>需要小的单元来捕获给定方向上的梯度。</p>
+<p>${\delta_{99}}$表示速度到达自由流速度99%时厚度。</p>
+<div class="note note-light">
+            <ol><li>在边界层内，粘性力与惯性力同一数量级</li><li>由于边界层很薄，可以近似认为边界层中各截面上的压强等于同一截面上边界层外边界上的压强值。</li></ol>
+          </div>
+
+
+<h3 id="无粘流动与真实流动的区别"><a href="#无粘流动与真实流动的区别" class="headerlink" title="无粘流动与真实流动的区别"></a>无粘流动与真实流动的区别</h3><p>考虑边界层的存在，在后方会出现分离区</p>
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240320154409785.png" srcset="/img/loading.gif" lazyload alt="image-20240320154409785"></p>
+<h2 id="2、第一层网格大小"><a href="#2、第一层网格大小" class="headerlink" title="2、第一层网格大小"></a>2、第一层网格大小</h2><p>yH依赖于y+的值</p>
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240320151316147.png" srcset="/img/loading.gif" lazyload alt="image-20240320151316147"></p>
+<p>$$y^+&#x3D;\frac{\rho u_\tau y_p}\mu $$</p>
+<div class="note note-light">
+            <ul><li>动力粘度：单位为Pa.s(N&#x2F;m2.s),厘泊（CP），1Pa.s&#x3D;10P（泊）&#x3D;1000CP（厘泊）</li><li>运动粘度V：即动力粘度u与密度p的比值：v&#x3D;u&#x2F;p，运动粘度的单位为m2&#x2F;s，习惯单位为：厘斯(mm2&#x2F;s)</li><li>这里指的是动力粘度</li></ul>
+          </div>
+
+<h2 id="3、总高度"><a href="#3、总高度" class="headerlink" title="3、总高度"></a>3、总高度</h2><p>网格边界层的总高度要包含${\delta_{99}}$</p>
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240320151535403.png" srcset="/img/loading.gif" lazyload alt="image-20240320151535403"></p>
+<p>2个边界层</p>
+<p>$$y_T&#x3D;y_H+y_H*G$$</p>
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240320151740787.png" srcset="/img/loading.gif" lazyload alt="image-20240320151740787"></p>
+<p>3个边界层</p>
+<p>$$y_T&#x3D;y_H+y_HG+y_HG^2$$</p>
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240320151857224.png" srcset="/img/loading.gif" lazyload alt="image-20240320151857224"></p>
+<p>我们可以得出边界层公式</p>
+<p>$$y_T&#x3D;y_H+y_HG+y_HG^2+y_HG^3+…+y_HG^{N-1}$$</p>
+<p>即</p>
+<p>$$\sum_{k&#x3D;0}^{N-1}y_HG^k&#x3D;y_H\frac{1-G^N}{1-G}$$</p>
+<p>$$\delta_{99}&#x3D;y_H\frac{1-G^N}{1-G}$$</p>
+<p>而边界层厚度的计算公式为</p>
+<p>$$\begin{aligned}\delta_{99}&amp;&#x3D;\frac{4.91L}{\sqrt{Re_L}}\quad&amp;Re&lt;5\times10^5\\delta_{99}&amp;&#x3D;\frac{0.38L}{Re_L^{1&#x2F;5}}\quad&amp;Re&gt;5\times10^5\end{aligned}$$</p>
+<h2 id="4、G和N如何确定"><a href="#4、G和N如何确定" class="headerlink" title="4、G和N如何确定"></a>4、G和N如何确定</h2><p>首先可以大致猜测一下</p>
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240320152635843.png" srcset="/img/loading.gif" lazyload alt="image-20240320152635843"></p>
+<p>如果N&gt;10，则第一个网格高度约为30</p>
+<p>如果N&gt;25，则第一个网格高度约为1</p>
+<div class="note note-light">
+            <p>通常</p><ul><li>1.05&lt;G&lt;1.3</li><li>10&lt;N&lt;30</li></ul>
+          </div>
+
+<h2 id="5、如何确定网格是好坏"><a href="#5、如何确定网格是好坏" class="headerlink" title="5、如何确定网格是好坏"></a>5、如何确定网格是好坏</h2><h3 id="小的网格转变"><a href="#小的网格转变" class="headerlink" title="小的网格转变"></a>小的网格转变</h3><p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240320153250656.png" srcset="/img/loading.gif" lazyload alt="image-20240320153250656"></p>
+<h3 id="在大涡模拟中"><a href="#在大涡模拟中" class="headerlink" title="在大涡模拟中"></a>在大涡模拟中</h3><p>$$v_{sgs}&#x3D;\left(C_{s}\Delta\right)^{2}\sqrt{2S_{ij}S_{ij}}$$</p>
+<p>网格大小突然改变，会导致$v_{sgs}$突然改变</p>
+<h3 id="在-RANS-中"><a href="#在-RANS-中" class="headerlink" title="在 RANS 中"></a>在 RANS 中</h3><p>使用至少3种不同的网格进行网格细化研究是非常必要的。</p>
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240320153804905.png" srcset="/img/loading.gif" lazyload alt="image-20240320153804905"></p>
+<div class="note note-light">
+            <p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=1gSHN99I7L4&list=PLnJ8lIgfDbkqaOdo-twtuco-qYahdAeG8">边界层理论</a></p>
+          </div>
+
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="y-定义"><a href="#y-定义" class="headerlink" title="y+定义"></a><a target="_blank" rel="noopener" href="https://www.simscale.com/forum/t/what-is-y-yplus/82394">y+定义</a></h3><p>根据y+的大小，可以将湍流边界层分为好多层。</p>
+<ol>
+<li>粘性子层($y^{+} &lt; 5$)：粘性影响占据主要地位，雷诺应力可忽略，则$u^{+} &#x3D; y^{+}$</li>
+<li>对数区域($y^{+} &gt; 30$)：湍流应力占主导地位，$u^+&#x3D;\frac1\kappa ln(y^+)+B$，其中k&#x3D;0.41,B&#x3D;5.2</li>
+<li>缓冲层($5 &lt; y^{+} &lt; 30$)：粘性应力和湍流应力的大小相近，由于该区域比较复杂，速度剖面的定义不明确，原始壁面函数会避开位于该区域的第一个单元中心。</li>
+</ol>
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/20240320162112.png" srcset="/img/loading.gif" lazyload alt="The Law of the Wall"></p>
+<p>壁面函数要求第一层网格尺寸$30&lt;y^{+}&lt;300$</p>
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/20240320164028.png" srcset="/img/loading.gif" lazyload alt="y+应用"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%A8%A1%E6%8B%9F/" class="category-chain-item">模拟</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%A8%A1%E6%8B%9F/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="category-chain-item">基础知识</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%A8%A1%E6%8B%9F/" class="print-no-link">#模拟</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>边界层理论</div>
+      <div>http://example.com/2024/03/20/013 边界层理论/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>DB</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年3月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/04/01/014%2020240401%E9%9A%8F%E6%83%B3/" title="20240401【钝感力】">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">20240401【钝感力】</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/03/20/012%20Openfoam%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B1%82%E8%A7%A3%E5%99%A8/" title="Openfoam自定义求解器">
+                        <span class="hidden-mobile">Openfoam自定义求解器</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
