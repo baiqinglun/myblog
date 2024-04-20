@@ -16,24 +16,26 @@
   <meta name="author" content="DB">
   <meta name="keywords" content="">
   
-    <meta name="description" content="这些天一直忙着做实验，把自己陷入忙碌中，发现自己身上的缺陷还是很明显的。  不虚心接受别人的建议； 做事容易慌张，没有规划；  第一点我相信很多人都会这样，就是你说的可以对，但我一定不是错的。我也认为承认自己错了是一件非常丢人的事，那些“心灵鸡汤”总是会说让勇于承认自己的错误，但凡事都要有个前提。有时候你站在某个位置不能承认自己是错误的，改错往往比承认错误更有价值。曹操作为统领一方的诸侯，有时也会">
+    <meta name="description" content="使用python绘图时，想要在一张图中中文使用宋体，英文使用新罗马字体该如何解决？">
 <meta property="og:type" content="article">
-<meta property="og:title" content="20240414【再忙也要照顾好自己】">
-<meta property="og:url" content="http://example.com/2024/04/14/015%2020240414%E9%9A%8F%E6%83%B3/index.html">
+<meta property="og:title" content="解决matplotlib绘图中英文混用问题">
+<meta property="og:url" content="http://example.com/2024/04/17/016%20matplotlib%E7%BB%98%E5%9B%BE%E4%B8%AD%E8%8B%B1%E6%96%87%E6%B7%B7%E7%94%A8%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/index.html">
 <meta property="og:site_name" content="大白的个人博客">
-<meta property="og:description" content="这些天一直忙着做实验，把自己陷入忙碌中，发现自己身上的缺陷还是很明显的。  不虚心接受别人的建议； 做事容易慌张，没有规划；  第一点我相信很多人都会这样，就是你说的可以对，但我一定不是错的。我也认为承认自己错了是一件非常丢人的事，那些“心灵鸡汤”总是会说让勇于承认自己的错误，但凡事都要有个前提。有时候你站在某个位置不能承认自己是错误的，改错往往比承认错误更有价值。曹操作为统领一方的诸侯，有时也会">
+<meta property="og:description" content="使用python绘图时，想要在一张图中中文使用宋体，英文使用新罗马字体该如何解决？">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/clay-banks-RDg0Xz_KBdY-unsplash.jpg">
-<meta property="article:published_time" content="2024-04-14T13:37:00.000Z">
-<meta property="article:modified_time" content="2024-04-14T14:28:29.263Z">
+<meta property="og:image" content="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240417011423583.png">
+<meta property="article:published_time" content="2024-04-16T16:28:00.000Z">
+<meta property="article:modified_time" content="2024-04-16T17:20:58.967Z">
 <meta property="article:author" content="DB">
-<meta property="article:tag" content="随想">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="matplotlib">
+<meta property="article:tag" content="科研">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/clay-banks-RDg0Xz_KBdY-unsplash.jpg">
+<meta name="twitter:image" content="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240417011423583.png">
   
   
   
-  <title>20240414【再忙也要照顾好自己】 - 大白的个人博客</title>
+  <title>解决matplotlib绘图中英文混用问题 - 大白的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +201,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="20240414【再忙也要照顾好自己】"></span>
+            <span id="subtitle" data-typed-text="解决matplotlib绘图中英文混用问题"></span>
           
         </div>
 
@@ -215,8 +217,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-04-14 21:37" pubdate>
-          星期日, 四月 14日 2024, 9:37 晚上
+        <time datetime="2024-04-17 00:28" pubdate>
+          星期三, 四月 17日 2024, 12:28 凌晨
         </time>
       </span>
     
@@ -228,7 +230,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          763 字
+          1.1k 字
         
       </span>
     
@@ -240,7 +242,7 @@
         
         
           <!-- compatible with older versions-->
-          7 分钟
+          9 分钟
         
       </span>
     
@@ -277,20 +279,70 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">20240414【再忙也要照顾好自己】</h1>
+            <h1 id="seo-header">解决matplotlib绘图中英文混用问题</h1>
             
             
               <div class="markdown-body">
                 
-                <p>这些天一直忙着做实验，把自己陷入忙碌中，发现自己身上的缺陷还是很明显的。</p>
-<ol>
-<li>不虚心接受别人的建议；</li>
-<li>做事容易慌张，没有规划；</li>
-</ol>
-<p>第一点我相信很多人都会这样，就是你说的可以对，但我一定不是错的。我也认为承认自己错了是一件非常丢人的事，那些“心灵鸡汤”总是会说让勇于承认自己的错误，但凡事都要有个前提。有时候你站在某个位置不能承认自己是错误的，改错往往比承认错误更有价值。曹操作为统领一方的诸侯，有时也会决策失误，比如赤壁之战，但是他决不能承认自己错了，因为一旦承认自己错了，很多将领就会认为他没有能力统领军队。而此时从失败中总结教训是最好的选择，不仅能鼓舞士气，还能体现自己的独特性格。</p>
-<p>有时我不是不想承认自己的错误，而是本身就没有什么错误可言。在做实验中，一件小事本身就有很多种做法，而这些做法中都没有对错之分，只不过是思考问题角度不同导致的。总有某些人自以为是，认为自己想的就是正确的，好为人师，把自己的想法强加在别人身上，说一些让人反感的话，“你那些做不是更好吗？”“你为什么这样做，你为什么不那样做”。我心里真是想骂人，可是为了一起完成任务还是要忍下来。我不想争对与错，因为没有对错之分，即使有对错之分，都是一些无关紧要的小事，何必要争论。现在我也懒得去争论，你说什么就是什么，我不教训你，以后自有人教训你，你说你的，我做我的就好了。</p>
-<p>今天是14号了，抑爆部分做的稀碎。实验过程中总会遇见各种各样的问题，有时一个小问题能卡人很长时间。今天因为点火电极的事让人很崩溃，一会能打得着火一会打不着，即使这次能打着，受到一点扰动就打不着。120L球固体重复性极差，压力曲线下降段有一小节平滑段，一开始认为是点火时间的问题，之后又认为是传感器的问题，但后来换了氢气还是会出现这种状况，到现在都没有找到原因。不管了，明天直接做气体的抑爆实验，没有这么多时间让我想原因，目前最重要的就是完成项目的相关实验，尤其是气体的。明天开始做气体的空白实验以及抑爆实验，老板的目的是能抑制住，我的目的是有数据，只有有效果就好。</p>
+                <p>最近在处理实验数据，因为有c++基础，尝试使用python进行绘图。</p>
+<div class="note note-danger">
+            <p>目前遇到一个问题：想要在一张图中中文使用宋体，英文使用新罗马字体该如何解决？</p>
+          </div>
 
+<p>在网上查阅了大量的资料，找到了几种解决办法，总结起来就3种：</p>
+<ol>
+<li>全局使用中文，在需要使用英文的地方使用latex公式书写；</li>
+<li>使用外部</li>
+<li>合并宋体和新罗马字体为新字体<code>timessimsun</code>，重新导入matplotlib</li>
+</ol>
+<h2 id="第一种方案：全局宋体-latex新罗马"><a href="#第一种方案：全局宋体-latex新罗马" class="headerlink" title="第一种方案：全局宋体+latex新罗马"></a>第一种方案：全局宋体+latex新罗马</h2><p>比如在绘制text时，英文使用latex公式进行书写，可将英文显示为新罗马字体。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br>rc = &#123;<span class="hljs-string">&quot;font.family&quot;</span> : <span class="hljs-string">&quot;Times New Roman&quot;</span>,<br>      <span class="hljs-string">&quot;mathtext.fontset&quot;</span> : <span class="hljs-string">&quot;stix&quot;</span>,<br>      &#125;<br>plt.rcParams.update(rc)<br>fig,ax = plt.subplots(dpi = <span class="hljs-number">300</span>)<br>ax.set_xlabel(<span class="hljs-string">r&#x27;密度$\mathrm&#123;kg/m&#125;^3$&#x27;</span>,fontname = <span class="hljs-string">&#x27;SimSun&#x27;</span>,fontsize = <span class="hljs-number">20</span>)<br>ax.text(<span class="hljs-number">0.2</span>,<span class="hljs-number">0.8</span>,<span class="hljs-string">r&#x27;宋体 $\mathrm&#123;Times New Roman&#125;$(正体)&#x27;</span>,fontname = <span class="hljs-string">&#x27;SimSun&#x27;</span>,fontsize = <span class="hljs-number">20</span>)<br>ax.text(<span class="hljs-number">0.2</span>,<span class="hljs-number">0.6</span>,<span class="hljs-string">r&#x27;宋体 $Times New Roman$(斜体)&#x27;</span>,fontname = <span class="hljs-string">&#x27;SimSun&#x27;</span>,fontsize = <span class="hljs-number">20</span>)<br>ax.text(<span class="hljs-number">0.2</span>,<span class="hljs-number">0.4</span>,<span class="hljs-string">r&#x27;$\mathrm&#123;m^3&#125;\ m^3$&#x27;</span>,fontsize = <span class="hljs-number">30</span>)<br>fig.tight_layout()<br>plt.show()<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240417004233122.png" srcset="/img/loading.gif" lazyload alt="image-20240417004233122"></p>
+<p>这时可能还是不行，原因是<code>matplotlib</code>没有找到宋体</p>
+<p><strong>修改配置文件</strong></p>
+<p><code>C:\Users\23984\.conda\envs\py-data-deal\Lib\site-packages\matplotlib\mpl-data\matplotlibrc</code>，也就是<code>Python</code>目录下的<code>Lib\site-packages\matplotlib\mpl-data\matplotlibrc</code></p>
+<p>修改字体类型为<code>serif</code>，并添加宋体</p>
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240417010437557.png" srcset="/img/loading.gif" lazyload alt="image-20240417010437557"></p>
+<p><strong>更改缓存文件</strong></p>
+<p><code>C:\Users\23984\.matplotlib\fontlist-v330.json</code></p>
+<p>在ttflist中重新新增一份<code>simsun</code>字体，定位到字体存放的位置</p>
+<blockquote>
+<p>这个字体可在电脑默认字体库中找到，在<code>C:\Windows\Fonts</code>目录下</p>
+</blockquote>
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240417010608917.png" srcset="/img/loading.gif" lazyload alt="image-20240417010608917"></p>
+<p>完成</p>
+<div class="note note-danger">
+            <p>但是这个方法有个很明显的局限性，就是需要手动在英文的地方输入latex公式，其一对不熟悉latex的伙伴不友好，其二若数字是存储在一个变量中如何在latex获取变量的值。比如在绘制lengend时，1000g&#x2F;m3中的1000是存储在动态变量中的，这时就不能通过第一种方法显示更改为新罗马字体。</p>
+          </div>
+
+<h2 id="第二种方案：latex包"><a href="#第二种方案：latex包" class="headerlink" title="第二种方案：latex包"></a>第二种方案：latex包</h2><p>这种方案需要使用第三方 LaTex包 ，xeCJK 是一个提供中文、日文和韩文支持的软件包。输入以下代码老是报错，目前我没有成功，所以此方案不做详细介绍，如果有小伙伴通过这种方法成功了，还请一起交流学习。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib<br>mpl.use(<span class="hljs-string">&#x27;pgf&#x27;</span>) <span class="hljs-comment"># stwich backend to pgf</span><br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br>    plt.rcParams.update(&#123;<br>    <span class="hljs-string">&quot;text.usetex&quot;</span>: <span class="hljs-literal">True</span>,<span class="hljs-comment"># use default xelatex</span><br>    <span class="hljs-string">&quot;pgf.rcfonts&quot;</span>: <span class="hljs-literal">False</span>,<span class="hljs-comment"># turn off default matplotlib fonts properties</span><br>    <span class="hljs-string">&quot;pgf.preamble&quot;</span>: [<br>         <span class="hljs-string">r&#x27;\usepackage&#123;fontspec&#125;&#x27;</span>,<br>         <span class="hljs-string">r&#x27;\setmainfont&#123;Times New Roman&#125;&#x27;</span>,<span class="hljs-comment"># EN fonts Romans</span><br>         <span class="hljs-string">r&#x27;\usepackage&#123;xeCJK&#125;&#x27;</span>,<span class="hljs-comment"># import xeCJK</span><br>         <span class="hljs-string">r&#x27;\setCJKmainfont&#123;SimSun&#125;&#x27;</span>,<span class="hljs-comment"># set CJK fonts as SimSun</span><br>         <span class="hljs-string">r&#x27;\xeCJKsetup&#123;CJKecglue=&#125;&#x27;</span>,<span class="hljs-comment"># turn off one space between CJK and EN fonts</span><br>         ]<br>&#125;)<br>plt.rcParams[<span class="hljs-string">&#x27;savefig.dpi&#x27;</span>]=<span class="hljs-number">300</span><br>plt.figure(figsize=(<span class="hljs-number">4.5</span>, <span class="hljs-number">2.5</span>))<br>plt.plot(<span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>))<br>plt.text(<span class="hljs-number">2.5</span>, <span class="hljs-number">2.</span>, <span class="hljs-string">&quot;\CJKfontspec&#123;SimHei&#125;&#123;黑体标注&#125;&quot;</span>)<span class="hljs-comment"># Annotation by SimHei</span><br>plt.xlabel(<span class="hljs-string">&quot;宋体坐标标签(units)&quot;</span>)<span class="hljs-comment"># CJK&amp;EN fonts mixed</span><br>plt.tight_layout(<span class="hljs-number">.5</span>)<br>plt.savefig(<span class="hljs-string">&#x27;examples.png&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<h2 id="第三种方法：合并新字体"><a href="#第三种方法：合并新字体" class="headerlink" title="第三种方法：合并新字体"></a>第三种方法：合并新字体</h2><p>这是比较推荐的一种方法，就是将新罗马和宋体两种字体合并为一种字体使用，需要使用字体合并工具，这里我直接在网上找到了别人合并好的，<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1Dis12wv7cbDE-l61oGcnWQ?pwd=t036">点击下载</a>。</p>
+<p>将合并好的字体放在<code>matplotlib</code>包目录下，我这里使用的是<code>anaconda</code>字体文件夹是<code>C:\Users\23984\.conda\envs\py-data-deal\Lib\site-packages\matplotlib\mpl-data\fonts\ttf</code>，在<code>Python</code>环境下的<code>Lib\site-packages\matplotlib\mpl-data\fonts\ttf</code></p>
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240417005515518.png" srcset="/img/loading.gif" lazyload alt="image-20240417005515518"></p>
+<p><strong>修改配置文件</strong></p>
+<p><code>C:\Users\23984\.conda\envs\py-data-deal\Lib\site-packages\matplotlib\mpl-data\matplotlibrc</code>，也就是<code>Python</code>目录下的<code>Lib\site-packages\matplotlib\mpl-data\matplotlibrc</code></p>
+<p>修改字体类型为<code>serif</code>，并添加新和成的字体</p>
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240417005737211.png" srcset="/img/loading.gif" lazyload alt="image-20240417005737211"></p>
+<p><strong>更改缓存文件</strong></p>
+<p><code>C:\Users\23984\.matplotlib\fontlist-v330.json</code></p>
+<p>在ttflist中重新新增一份<code>timessimsun</code>字体，定位到字体存放的位置</p>
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240417005920759.png" srcset="/img/loading.gif" lazyload alt="image-20240417005920759"></p>
+<p><strong>测试代码</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">from</span> matplotlib <span class="hljs-keyword">import</span> rcParams<br><br><br>config = &#123;<br>      <span class="hljs-string">&quot;font.family&quot;</span>:<span class="hljs-string">&#x27;serif&#x27;</span>,<br>      <span class="hljs-string">&quot;mathtext.fontset&quot;</span>:<span class="hljs-string">&#x27;stix&#x27;</span>,<br>      <span class="hljs-string">&quot;font.serif&quot;</span>: <span class="hljs-string">&#x27;timessimsun&#x27;</span>,<br>&#125;<br>rcParams.update(config)<br>plt.rcParams[<span class="hljs-string">&#x27;axes.unicode_minus&#x27;</span>] = <span class="hljs-literal">False</span>    <span class="hljs-comment"># 解决负号显示为方块的问题</span><br><br>fig,ax = plt.subplots(dpi = <span class="hljs-number">300</span>)<br>ax.set_xlabel(<span class="hljs-string">r&#x27;密度$\mathrm&#123;kg/m&#125;^3$&#x27;</span>,fontsize = <span class="hljs-number">20</span>)<br>ax.text(<span class="hljs-number">0.05</span>,<span class="hljs-number">0.6</span>,<span class="hljs-string">r&#x27;matplotlib中文使用宋体英文使用新罗马&#x27;</span>,fontsize = <span class="hljs-number">20</span>)<br>fig.tight_layout()<br>plt.show()<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240417011423583.png" srcset="/img/loading.gif" lazyload alt="image-20240417011423583"></p>
+<div class="note note-success">
+            <p>完成</p>
+          </div>
+
+
+
+<div class="note note-primary">
+            <p>参考链接:<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/44008032/how-to-mix-chinese-and-english-with-matplotlib">https://stackoverflow.com/questions/44008032/how-to-mix-chinese-and-english-with-matplotlib</a></p>
+          </div>
                 
               </div>
             
@@ -308,8 +360,15 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E9%9A%8F%E6%83%B3/" class="category-chain-item">随想</a>
+  <a href="/categories/%E7%BC%96%E7%A8%8B/" class="category-chain-item">编程</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BC%96%E7%A8%8B/Python/" class="category-chain-item">Python</a>
+  
+  
+
   
 
       </span>
@@ -323,7 +382,11 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E9%9A%8F%E6%83%B3/" class="print-no-link">#随想</a>
+        <a href="/tags/Python/" class="print-no-link">#Python</a>
+      
+        <a href="/tags/matplotlib/" class="print-no-link">#matplotlib</a>
+      
+        <a href="/tags/%E7%A7%91%E7%A0%94/" class="print-no-link">#科研</a>
       
     </div>
   
@@ -335,8 +398,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>20240414【再忙也要照顾好自己】</div>
-      <div>http://example.com/2024/04/14/015 20240414随想/</div>
+      <div>解决matplotlib绘图中英文混用问题</div>
+      <div>http://example.com/2024/04/17/016 matplotlib绘图中英文混用问题解决/</div>
     </div>
     <div class="license-meta">
       
@@ -348,7 +411,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年4月14日</div>
+          <div>2024年4月17日</div>
         </div>
       
       
@@ -380,18 +443,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/04/17/016%20matplotlib%E7%BB%98%E5%9B%BE%E4%B8%AD%E8%8B%B1%E6%96%87%E6%B7%B7%E7%94%A8%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/" title="解决matplotlib绘图中英文混用问题">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">解决matplotlib绘图中英文混用问题</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/04/01/014%2020240401%E9%9A%8F%E6%83%B3/" title="20240401【钝感力】">
-                        <span class="hidden-mobile">20240401【钝感力】</span>
+                      <a href="/2024/04/14/015%2020240414%E9%9A%8F%E6%83%B3/" title="20240414【再忙也要照顾好自己】">
+                        <span class="hidden-mobile">20240414【再忙也要照顾好自己】</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
