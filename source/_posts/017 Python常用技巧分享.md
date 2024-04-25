@@ -6,9 +6,10 @@ published: true
 date: "2024/04/24 23:28:00"
 index_img: https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240425001649810.png
 category: 
-- [编程,Python,技巧]
+- [编程,Python]
 tags:
 - Python
+- 技巧
 ---
 
 # 1、推导式
