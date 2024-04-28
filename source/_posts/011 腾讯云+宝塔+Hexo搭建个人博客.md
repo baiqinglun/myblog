@@ -79,3 +79,29 @@ hexo -g
 
 >  使用域名访问，需要先购买个域名，通过DNS解析到该主机地址上，还需要备案才能访问，过程就不演示了。
 
+# 4、修改宝塔默认端口
+
+宝塔服务器使用的默认端口是80，则网站只能使用其他端口，在访问网站时就得在后面加端口号，很不方便。所以要修改服务器默认端口，这里改为1180，将网站的端口改为80。
+
+进入`/www/server/panel/vhost/nginx/`文件夹下，可看到以下几个配置文件，
+
+![image-20240428161735189](https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240428161735189.png)
+
+修改默认服务器配置文件`0.default.conf`，默认端口号为`1180`
+
+![image-20240428161827572](https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240428161827572.png)
+
+修改`php`配置文件`phpfpm_status.conf`，默认端口号为`1180`
+
+![image-20240428161913605](https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240428161913605.png)
+
+修改网站配置文件`qlbai.fun.conf`，默认端口号为`80`
+
+![image-20240428162009848](https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240428162009848.png)
+
+之后需要在防火墙处打开`1180`端口号
+
+![image-20240428162220684](https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240428162220684.png)
+
+![image-20240428162228031](https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240428162228031.png)
+

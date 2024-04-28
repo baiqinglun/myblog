@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240318110440540.png">
 <meta property="article:published_time" content="2024-03-19T14:44:25.000Z">
-<meta property="article:modified_time" content="2024-03-31T16:58:10.553Z">
+<meta property="article:modified_time" content="2024-04-28T08:22:39.113Z">
 <meta property="article:author" content="DB">
 <meta property="article:tag" content="技术分享">
 <meta name="twitter:card" content="summary_large_image">
@@ -228,7 +228,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          361 字
+          528 字
         
       </span>
     
@@ -240,7 +240,7 @@
         
         
           <!-- compatible with older versions-->
-          4 分钟
+          5 分钟
         
       </span>
     
@@ -315,6 +315,18 @@
 <blockquote>
 <p> 使用域名访问，需要先购买个域名，通过DNS解析到该主机地址上，还需要备案才能访问，过程就不演示了。</p>
 </blockquote>
+<h1 id="4、修改宝塔默认端口"><a href="#4、修改宝塔默认端口" class="headerlink" title="4、修改宝塔默认端口"></a>4、修改宝塔默认端口</h1><p>宝塔服务器使用的默认端口是80，则网站只能使用其他端口，在访问网站时就得在后面加端口号，很不方便。所以要修改服务器默认端口，这里改为1180，将网站的端口改为80。</p>
+<p>进入<code>/www/server/panel/vhost/nginx/</code>文件夹下，可看到以下几个配置文件，</p>
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240428161735189.png" srcset="/img/loading.gif" lazyload alt="image-20240428161735189"></p>
+<p>修改默认服务器配置文件<code>0.default.conf</code>，默认端口号为<code>1180</code></p>
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240428161827572.png" srcset="/img/loading.gif" lazyload alt="image-20240428161827572"></p>
+<p>修改<code>php</code>配置文件<code>phpfpm_status.conf</code>，默认端口号为<code>1180</code></p>
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240428161913605.png" srcset="/img/loading.gif" lazyload alt="image-20240428161913605"></p>
+<p>修改网站配置文件<code>qlbai.fun.conf</code>，默认端口号为<code>80</code></p>
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240428162009848.png" srcset="/img/loading.gif" lazyload alt="image-20240428162009848"></p>
+<p>之后需要在防火墙处打开<code>1180</code>端口号</p>
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240428162220684.png" srcset="/img/loading.gif" lazyload alt="image-20240428162220684"></p>
+<p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/image-20240428162228031.png" srcset="/img/loading.gif" lazyload alt="image-20240428162228031"></p>
 
                 
               </div>
