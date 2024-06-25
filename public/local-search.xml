@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>Fluent中的浮力模型</title>
+    <link href="/2024/06/25/019%20Fluent%E4%B8%AD%E7%9A%84%E6%B5%AE%E5%8A%9B%E6%A8%A1%E5%9E%8B/"/>
+    <url>/2024/06/25/019%20Fluent%E4%B8%AD%E7%9A%84%E6%B5%AE%E5%8A%9B%E6%A8%A1%E5%9E%8B/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Fluent中的浮力模型"><a href="#Fluent中的浮力模型" class="headerlink" title="Fluent中的浮力模型"></a>Fluent中的浮力模型</h1><h2 id="1、基本概念"><a href="#1、基本概念" class="headerlink" title="1、基本概念"></a>1、基本概念</h2><p>当计算域开启重力场和能量场时，可在<code>ke</code>模型中考虑浮力的产生。</p><p>由于浮力而产生的湍流公式：</p><p>$$G_b&#x3D;\beta g_i\frac{\mu_t}{\mathrm{Pr}_t}\frac{\partial T}{\partial x_i}$$</p><p>其中$Pr_{t}$是能量的湍流普朗特数，$g_{i}$是重力矢量在$i$方向上的分量。对于标准和可实现<code>ke</code>模型，$Pr_{t}&#x3D;0.85$。在<code>RNG ke</code>模型，$Pr_{t}&#x3D;\frac{1 }{\alpha} $。其中$\alpha$由以下公式计算：</p><p>$$\left|\frac{\alpha-1.3929}{\alpha_0-1.3929}\right|^{0.6321}\left|\frac{\alpha+2.3929}{\alpha_0+2.3929}\right|^{0.3679}&#x3D;\frac{\mu_{\mathrm{mol}}}{\mu_{\mathrm{eff}}}$$</p><p>其中$\alpha_{0}&#x3D;1.0$，在高雷诺数限制下，$\mu_{\mathrm{mol}}&#x2F;\mu_{\mathrm{eff}}\ll1$，$\alpha_{k}&#x3D;\alpha_{\epsilon}\approx1.393$</p><p>系数$\beta $定义为</p><p>$$\beta&#x3D;-\frac1\rho\left(\frac{\partial\rho}{\partial T}\right)_p$$</p><p>对于理想气体状态方程：</p><p>$$G_b&#x3D;-g_i\frac{\mu_t}{\rho\mathrm{Pr}_t}\frac{\partial\rho}{\partial x_i}$$</p><blockquote><p>在不稳定分层中，湍动能趋于增大。对于不稳定的分层，浮力会抑制湍流。</p></blockquote><p>受浮力影响程度由常数$C_{3\epsilon }$决定，在Fluent中可通过以下公式计算</p><p>$$C_{3\epsilon}&#x3D;\tanh\left|\frac{v}{u}\right|$$</p><p>$v$是平行于重力矢量的流速分量，$u$是垂直于重力矢量的流速分量。对于主流方向与重力方向一致的浮力剪切层，该常数为1。对于垂直于重力矢量的浮力剪切层，该值为0。</p><h2 id="2、如何操作"><a href="#2、如何操作" class="headerlink" title="2、如何操作"></a>2、如何操作</h2><p>开启重力加速度和能量方程，即可在<code>ke</code>模型中设置全浮力模型。</p><p><img src="https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/20240625092823.png"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>模拟</category>
+      
+      <category>Fluent</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Fluent</tag>
+      
+      <tag>模拟</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Python装饰器</title>
     <link href="/2024/04/25/018%20Python%E8%A3%85%E9%A5%B0%E5%99%A8%E4%BD%BF%E7%94%A8/"/>
     <url>/2024/04/25/018%20Python%E8%A3%85%E9%A5%B0%E5%99%A8%E4%BD%BF%E7%94%A8/</url>
@@ -242,11 +271,11 @@
     
     <tags>
       
-      <tag>模拟</tag>
+      <tag>UDF</tag>
       
       <tag>Fluent</tag>
       
-      <tag>UDF</tag>
+      <tag>模拟</tag>
       
     </tags>
     
@@ -273,11 +302,11 @@
     
     <tags>
       
-      <tag>模拟</tag>
+      <tag>UDF</tag>
       
       <tag>Fluent</tag>
       
-      <tag>UDF</tag>
+      <tag>模拟</tag>
       
     </tags>
     
