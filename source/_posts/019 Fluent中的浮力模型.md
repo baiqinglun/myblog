@@ -4,7 +4,7 @@ excerpt: Fluent中的浮力模型
 # sticky: 100
 published: true
 date: "2024/06/25 10:23:00"
-index_img: https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/%E5%BE%AE%E8%AF%8D%E4%BA%91.jpg
+index_img: https://test-123456-md-images.oss-cn-beijing.aliyuncs.com/img/98e72535dccd272812df014544635a46.png
 category: 
 - [模拟,Fluent]
 tags:
